@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('date');
             $table->string('name');
             $table->string('city');
-            $table->string('type');
+            $table->unsignedBigInteger('type_id');
             $table->string('phone');
             $table->string('remark');
-            $table->string('status');
+            $table->unsignedBigInteger('status_id');
             $table->timestamps();
         });
     }

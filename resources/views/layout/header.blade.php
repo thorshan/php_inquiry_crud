@@ -14,9 +14,15 @@
 
     @yield('header')
 
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Inquiry List</span>
+    <nav class="navbar bg-dark d-flex py-2 px-5" data-bs-theme="dark">
+        <div class="p-2 bd-highlight">
+            <div class="navbar-brand h1">Inquiry List</div>
+        </div>
+        <a href="{{route('inquiries.create')}}" class="ms-auto p-2 bd-highlight">
+            <button class="btn btn-primary">Add New</button>
+        </a>
+        <div class="p-2 bd-highlight">
+            <img width="40px" src="https://shiftart.com/wp-content/uploads/2017/04/RC-Profile-Square.jpg" alt="" class="rounded">
         </div>
     </nav>
 

@@ -9,7 +9,8 @@ class Inquiry extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date', 'name', 'city', 'type', 'phone', 'remark', 'status'];
+    protected $fillable = ['date', 'name', 'city', 'type_id', 'phone', 'remark', 'status_id'];
+    
 
     public function status(){
         return $this->belongsTo(Status::class);

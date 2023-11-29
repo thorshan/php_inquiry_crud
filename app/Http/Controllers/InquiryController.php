@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inquiry;
+use App\Models\Type;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class InquiryController extends Controller
@@ -12,8 +14,8 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        $inquiry = Inquiry::all();
-        return view("dashboard.index", compact("inquiry"));
+        $inquiries = Inquiry::all();
+        return view("dashboard.index", compact("inquiries"));
     }
 
     /**
@@ -21,7 +23,9 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+        $statuses = Status::all();
+        return view("dashboard.create", compact("types","statuses"));
     }
 
     /**
@@ -30,6 +34,29 @@ class InquiryController extends Controller
     public function store(Request $request)
     {
         //
+
+        $data_validation = $request->validate([
+            "date"=> "required",
+            "name"=> "required",
+            "city"=> "required",
+            "type_id"=> "required",
+            "phone"=> "required",
+            "status_id"=> "required",
+        ]);
+
+        //
+        $inquiry = new Inquiry();
+        $inquiry->date = $data_validation['date'];
+        $inquiry->name = $data_validation['name'];
+        $inquiry->city = $data_validation['city'];
+        $inquiry->phone = $data_validation['phone'];
+        $inquiry->status_id = $data_validation['status_id'];
+        $inquiry->remark = $request->remark;
+        $inquiry->type_id = $data_validation['type_id'];
+
+        $inquiry->save();
+
+        return redirect()->route("inquiries.index");
     }
 
     /**
