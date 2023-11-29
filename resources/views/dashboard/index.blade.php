@@ -31,17 +31,19 @@
                         <td>
                             <div class="d-flex justify-content-evenly">
                                 <div class="bd-highlight">
-                                    <a href="">
-                                        <button class="btn btn-success btn-sm">View</button>
+                                    <a href="{{route('inquiries.show', $inquiry->id)}}">
+                                        <button type="button" class="btn btn-success btn-sm">View</button>
                                     </a>
                                 </div>
                                 <div class="bd-highlight">
-                                    <a href="">
-                                        <button class="btn btn-primary btn-sm">Edit</button>
+                                    <a href="{{route('inquiries.edit', $inquiry->id)}}">
+                                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
                                     </a>
                                 </div>
                                 <div class="bd-highlight">
-                                    <form action="">
+                                    <form action="{{route('inquiries.destroy', $inquiry->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
                                         <button class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </div>

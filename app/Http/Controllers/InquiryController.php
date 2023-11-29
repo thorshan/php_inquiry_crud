@@ -64,7 +64,10 @@ class InquiryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $inquiry = Inquiry::find($id);
+        $statuses = Status::all();
+        $types = Type::all();
+        return view("dashboard.view", compact("inquiry","statuses","types"));
     }
 
     /**
@@ -72,7 +75,10 @@ class InquiryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $inquiry = Inquiry::find($id);
+        $statuses = Status::all();
+        $types = Type::all();
+        return view("dashboard.edit", compact("inquiry","statuses","types"));
     }
 
     /**
@@ -80,7 +86,28 @@ class InquiryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $data_validation = $request->validate([
+            "date"=> "required",
+            "name"=> "required",
+            "city"=> "required",
+            "type_id"=> "required",
+            "phone"=> "required",
+            "status_id"=> "required",
+        ]);
+
         //
+        $inquiry = Inquiry::find( $id );
+        $inquiry->date = $data_validation['date'];
+        $inquiry->name = $data_validation['name'];
+        $inquiry->city = $data_validation['city'];
+        $inquiry->phone = $data_validation['phone'];
+        $inquiry->status_id = $data_validation['status_id'];
+        $inquiry->remark = $request->remark;
+        $inquiry->type_id = $data_validation['type_id'];
+
+        $inquiry->save();
+
+        return redirect()->route("inquiries.index");
     }
 
     /**
@@ -88,6 +115,7 @@ class InquiryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Inquiry::destroy($id);
+        return redirect()->route("inquiries.index");
     }
 }
